@@ -31,6 +31,10 @@ input[type="radio"] {
 	margin-top:-20px;
 	vertical-align:middle;
 }
+h4 {
+	padding-bottom: 2px;
+	margin-bottom: 2px;
+}
 .playerColorLabel {
 	margin-top:-20px;
 	vertical-align:middle;

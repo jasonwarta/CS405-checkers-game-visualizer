@@ -48,13 +48,22 @@ export default class GameContainer extends React.Component {
 	}
 
 	processGame() {
-		console.log(`running game`)
-		let data = JSON.parse(document.getElementById('enterBoard').value);
+		let data = [];
+		try {
+			data = JSON.parse(document.getElementById('enterBoard').value);
+		}
+		catch(e) {
+			data = JSON.parse(`[${document.getElementById('enterBoard').value.split('\n').join(',')}]`);
+		}
+		
 		
 		const loopDelay = (idx,nextIdx) => {
 			let self = this;
 			setTimeout( () => {
-				self.setState({board:data[idx].board.split('')});
+				self.setState({
+					board:data[idx].board.split(''),
+					computerMoves: [...this.state.computerMoves, data[idx].board]
+				});
 				if(data[nextIdx]) {
 					loopDelay(nextIdx,nextIdx+1);
 				}
@@ -62,14 +71,6 @@ export default class GameContainer extends React.Component {
 		}
 
 		loopDelay(0,1);
-
-		// data.forEach( (item,idx) => {
-		// 	loopDelay(idx,idx+1);
-		// });
-	}
-
-	componentWillMount() {
-
 	}
 
 	render(){
