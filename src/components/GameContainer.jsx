@@ -50,10 +50,10 @@ export default class GameContainer extends React.Component {
 	processGame() {
 		let data = [];
 		try {
-			data = JSON.parse(document.getElementById('enterBoard').value);
+			data = JSON.parse(document.getElementById('enterBoard').value.trim());
 		}
 		catch(e) {
-			data = JSON.parse(`[${document.getElementById('enterBoard').value.split('\n').join(',')}]`);
+			data = JSON.parse(`[${document.getElementById('enterBoard').value.trim().split('\n').join(',')}]`);
 		}
 		
 		
