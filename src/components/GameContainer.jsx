@@ -35,13 +35,18 @@ function log(msg) {
 	return true;
 }
 
+function checkBoard(lastBoard,currentBoard) {
+
+}
+
 export default class GameContainer extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			board: [],
-			computerMoves: []
+			board: [{color:'',board:[]}],
+			computerMoves: [],
+			turnColor: 'red'
 		}
 
 		this.processGame = this.processGame.bind(this);
@@ -60,8 +65,9 @@ export default class GameContainer extends React.Component {
 		const loopDelay = (idx,nextIdx) => {
 			let self = this;
 			setTimeout( () => {
+				let color = this.state.turnColor;
 				self.setState({
-					board:data[idx].board.split(''),
+					board:[...this.state.board, {color:color,board:data[idx].board.split('')}],
 					computerMoves: [...this.state.computerMoves, data[idx].board]
 				});
 				if(data[nextIdx]) {
@@ -79,13 +85,13 @@ export default class GameContainer extends React.Component {
 				<h1>Checkers Visualizer</h1>
 
 				<Board 
-					board={this.state.board} 
+					board={this.state.board.last().board} 
 				/>
 				<Color 
 					className="color turnMarker" 
 					color={this.state.turnColor} 
 				/>
-				<MoveTracker computerMoves={this.state.computerMoves} />
+				{/*<MoveTracker computerMoves={this.state.computerMoves} />*/}
 
 				<GameInput processGame={this.processGame} />
 			</div>
